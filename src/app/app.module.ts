@@ -10,14 +10,16 @@ import { MatListModule } from '@angular/material/list';
 import { HeaderComponent } from './components/template/header/header.component';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { HomeComponent } from './views/home/home.component';
-import { MatCardModule } from '@angular/material/card'
+import { MatCardModule } from '@angular/material/card';
+import { ConsultaComponent } from './views/consulta/consulta.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     NavComponent,
     HeaderComponent,
-    HomeComponent
+    HomeComponent,
+    ConsultaComponent
   ],
   imports: [
     BrowserModule,

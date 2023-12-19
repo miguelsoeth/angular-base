@@ -2,17 +2,17 @@ import { Component, OnInit } from '@angular/core';
 import { HeaderService } from 'src/app/components/template/header/header.service';
 
 @Component({
-  selector: 'app-home',
-  templateUrl: './home.component.html',
-  styleUrls: ['./home.component.css']
+  selector: 'app-consulta',
+  templateUrl: './consulta.component.html',
+  styleUrls: ['./consulta.component.css']
 })
-export class HomeComponent implements OnInit {
+export class ConsultaComponent implements OnInit {
 
   constructor(private headerService: HeaderService) {
     headerService.HeaderData = {
-      title: "Início",
-      icon: 'home',
-      routeUrl: ''
+      title: "Consultas",
+      icon: 'search',
+      routeUrl: '/consulta'
     }
   }
 
