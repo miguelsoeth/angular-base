@@ -12,7 +12,16 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { HomeComponent } from './views/home/home.component';
 import { MatCardModule } from '@angular/material/card';
 import { ConsultaComponent } from './views/consulta/consulta.component';
-import { MatButtonModule } from '@angular/material/button'
+import { MatButtonModule } from '@angular/material/button';
+import { QueryButtonComponent } from './components/components/query-button/query-button.component';
+import { SearchDialogComponent } from './components/components/search-dialog/search-dialog.component';
+import { MatDialogModule } from '@angular/material/dialog'
+import {MatDatepickerModule} from '@angular/material/datepicker';
+import {MatInputModule} from '@angular/material/input';
+import {MatFormFieldModule} from '@angular/material/form-field';
+import {MatNativeDateModule} from '@angular/material/core';
+import {FormsModule} from '@angular/forms';
+import {MatSelectModule} from '@angular/material/select';;
 
 @NgModule({
   declarations: [
@@ -20,7 +29,9 @@ import { MatButtonModule } from '@angular/material/button'
     NavComponent,
     HeaderComponent,
     HomeComponent,
-    ConsultaComponent
+    ConsultaComponent,
+    QueryButtonComponent,
+    SearchDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -30,7 +41,14 @@ import { MatButtonModule } from '@angular/material/button'
     MatListModule,
     MatToolbarModule,
     MatCardModule,
-    MatButtonModule
+    MatButtonModule,
+    MatDialogModule,
+    MatDatepickerModule,
+    MatInputModule,
+    MatFormFieldModule,
+    MatNativeDateModule,
+    FormsModule,
+    MatSelectModule
   ],
   providers: [],
   bootstrap: [AppComponent]
