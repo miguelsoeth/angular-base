@@ -5,28 +5,13 @@
     font-size: 1rem;
 }
 
-.document-type {
-    font-size: 1.2rem;
-    width: 50%;
-}
-
-.date-picker {
-    font-size: 1.2rem;
-    width: 50%;
-}
-
-.document-value {
+.mat-dialog-content > * {
     font-size: 1.2rem;
     width: 50%;
 }
 
 .document-value mat-hint {
     color: red;
-}
-
-.search-interval {
-    font-size: 1.2rem;
-    width: 50%;
 }
 
 .mat-dialog-actions {
