@@ -13,15 +13,15 @@ import { HomeComponent } from './views/home/home.component';
 import { MatCardModule } from '@angular/material/card';
 import { ConsultaComponent } from './views/consulta/consulta.component';
 import { MatButtonModule } from '@angular/material/button';
-import { QueryButtonComponent } from './components/components/query-button/query-button.component';
-import { SearchDialogComponent } from './components/components/search-dialog/search-dialog.component';
+import { QueryButtonComponent, QueryButtonDialog } from './components/components/query-button/query-button.component';
 import { MatDialogModule } from '@angular/material/dialog'
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import {MatInputModule} from '@angular/material/input';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatNativeDateModule} from '@angular/material/core';
-import {FormsModule} from '@angular/forms';
-import {MatSelectModule} from '@angular/material/select';;
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import {MatSelectModule} from '@angular/material/select';import { NgxMaskModule } from 'ngx-mask';
+;
 
 @NgModule({
   declarations: [
@@ -31,7 +31,7 @@ import {MatSelectModule} from '@angular/material/select';;
     HomeComponent,
     ConsultaComponent,
     QueryButtonComponent,
-    SearchDialogComponent
+    QueryButtonDialog
   ],
   imports: [
     BrowserModule,
@@ -48,7 +48,9 @@ import {MatSelectModule} from '@angular/material/select';;
     MatFormFieldModule,
     MatNativeDateModule,
     FormsModule,
-    MatSelectModule
+    MatSelectModule,
+    ReactiveFormsModule,
+    NgxMaskModule.forRoot()
   ],
   providers: [],
   bootstrap: [AppComponent]
