@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
+import * as moment from 'moment';
 
 export interface DialogData {
   type: string;
@@ -77,7 +78,7 @@ export class QueryButtonDialog implements OnInit{
 
   search(): void {
     this.data.type = this.myForm.value.typeField;
-    this.data.date = this.myForm.value.dateField;
+    this.data.date = moment(this.myForm.value.dateField).format('DDMMYYYY');;
     this.data.document = this.myForm.value.documentField;
     this.data.interval = this.myForm.value.intervalField;
     console.log(this.data);
