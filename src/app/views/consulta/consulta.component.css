@@ -11,5 +11,6 @@
 }
 
 .query-button {
+    padding: 10px;
     align-self: flex-end;
 }

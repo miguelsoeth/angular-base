@@ -23,6 +23,10 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {MatSelectModule} from '@angular/material/select';import { NgxMaskModule } from 'ngx-mask';
 import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
 import { MomentDateAdapter } from '@angular/material-moment-adapter';
+import { TableComponent } from './components/components/table/table.component';
+import { MatTableModule } from '@angular/material/table';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatSortModule } from '@angular/material/sort';
 
 const MY_DATE_FORMAT = {
   parse: {
@@ -44,7 +48,8 @@ const MY_DATE_FORMAT = {
     HomeComponent,
     ConsultaComponent,
     QueryButtonComponent,
-    QueryButtonDialog
+    QueryButtonDialog,
+    TableComponent
   ],
   imports: [
     BrowserModule,
@@ -63,7 +68,10 @@ const MY_DATE_FORMAT = {
     FormsModule,
     MatSelectModule,
     ReactiveFormsModule,
-    NgxMaskModule.forRoot()
+    NgxMaskModule.forRoot(),
+    MatTableModule,
+    MatPaginatorModule,
+    MatSortModule
   ],
   providers: [
     { provide: DateAdapter, useClass: MomentDateAdapter, deps: [MAT_DATE_LOCALE] },
