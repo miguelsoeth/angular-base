@@ -27,6 +27,7 @@ import { TableComponent } from './components/components/table/table.component';
 import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 const MY_DATE_FORMAT = {
   parse: {
@@ -71,7 +72,8 @@ const MY_DATE_FORMAT = {
     NgxMaskModule.forRoot(),
     MatTableModule,
     MatPaginatorModule,
-    MatSortModule
+    MatSortModule,
+    MatSnackBarModule
   ],
   providers: [
     { provide: DateAdapter, useClass: MomentDateAdapter, deps: [MAT_DATE_LOCALE] },

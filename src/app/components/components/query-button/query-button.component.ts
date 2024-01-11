@@ -1,7 +1,9 @@
+import { QueryHistoryService } from './query-history.service';
 import { Component, OnInit } from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import * as moment from 'moment';
+import { UserService } from '../../template/user.service';
 
 export interface DialogData {
   type: string;
@@ -38,10 +40,18 @@ export class QueryButtonComponent implements OnInit {
 export class QueryButtonDialog implements OnInit{
 
   myForm: FormGroup;
+  documentType: string[] = ['CPF', 'CNPJ'];
+  dateInterval: { label: string; value: number }[] = [
+    { label: '3 meses', value: 3 },
+    { label: '6 meses', value: 6 },
+    { label: '1 ano', value: 12 }
+  ];
 
   constructor(
     public dialogRef: MatDialogRef<QueryButtonDialog>,
-    private formBuilder: FormBuilder) {}
+    private formBuilder: FormBuilder,
+    private userServiceData: UserService,
+    private queryHistoryService: QueryHistoryService) {}
 
   ngOnInit(): void {
     this.myForm = this.formBuilder.group({
@@ -57,14 +67,7 @@ export class QueryButtonDialog implements OnInit{
       }
     });
   }
-
-  documentType: string[] = ['CPF', 'CNPJ'];
-  dateInterval: { label: string; value: number }[] = [
-    { label: '3 meses', value: 3 },
-    { label: '6 meses', value: 6 },
-    { label: '1 ano', value: 12 }
-  ];
-
+  
   data: DialogData = {
     type: '',
     document: '',
@@ -77,10 +80,18 @@ export class QueryButtonDialog implements OnInit{
   }
 
   search(): void {
+    this.userServiceData.getUsername;
     this.data.type = this.myForm.value.typeField;
-    this.data.date = moment(this.myForm.value.dateField).format('DDMMYYYY');;
+    this.data.date = moment(this.myForm.value.dateField).format('DDMMYYYY');
     this.data.document = this.myForm.value.documentField;
     this.data.interval = this.myForm.value.intervalField;
     console.log(this.data);
+    
+    const intervalMonths: number = parseInt(this.myForm.value.intervalField);
+    const currentDate = moment(this.myForm.value.dateField);
+    const newDate = currentDate.subtract(intervalMonths, 'months');
+    console.log(newDate.format('DDMMYYYY').toString());
+    this.queryHistoryService.showMessage("Buscando...");
+    this.dialogRef.close();
   }
 }

@@ -4,48 +4,62 @@ import { MatSort } from '@angular/material/sort';
 import { map } from 'rxjs/operators';
 import { Observable, of as observableOf, merge } from 'rxjs';
 
-// TODO: Replace this with your own data model type
 export interface TableItem {
-  name: string;
-  id: number;
+  user: string;
+  queryDate: string;
+  type: string;
+  document: string;
+  refferedDate: string;
+  interval: string;
 }
 
-// TODO: replace this with real data from your application
-const EXAMPLE_DATA: TableItem[] = [
-  {id: 1, name: 'Hydrogen'},
-  {id: 2, name: 'Helium'},
-  {id: 3, name: 'Lithium'},
-  {id: 4, name: 'Beryllium'},
-  {id: 5, name: 'Boron'},
-  {id: 6, name: 'Carbon'},
-  {id: 7, name: 'Nitrogen'},
-  {id: 8, name: 'Oxygen'},
-  {id: 9, name: 'Fluorine'},
-  {id: 10, name: 'Neon'},
-  {id: 11, name: 'Sodium'},
-  {id: 12, name: 'Magnesium'},
-  {id: 13, name: 'Aluminum'},
-  {id: 14, name: 'Silicon'},
-  {id: 15, name: 'Phosphorus'},
-  {id: 16, name: 'Sulfur'},
-  {id: 17, name: 'Chlorine'},
-  {id: 18, name: 'Argon'},
-  {id: 19, name: 'Potassium'},
-  {id: 20, name: 'Calcium'},
-];
-
-/**
- * Data source for the Table view. This class should
- * encapsulate all logic for fetching and manipulating the displayed data
- * (including sorting, pagination, and filtering).
- */
 export class TableDataSource extends DataSource<TableItem> {
-  data: TableItem[] = EXAMPLE_DATA;
+  data: TableItem[];
   paginator: MatPaginator;
   sort: MatSort;
 
   constructor() {
     super();
+    this.initializeData();
+  }
+
+  private initializeData() {
+    const Data: TableItem[] = [
+      {
+        user: 'Adm',
+        queryDate: '01/01/01',
+        type: 'CPF',
+        document: '123.456',
+        refferedDate: '02/02/02',
+        interval: '3 meses'
+      },
+      {
+        user: 'Adm',
+        queryDate: '02/01/01',
+        type: 'CNPJ', 
+        document: '123.456.789',
+        refferedDate: '02/03/02',
+        interval: '6 meses'
+      },
+      {
+        user: 'Adm',
+        queryDate: '03/01/01',
+        type: 'CPF',
+        document: '123.456.123',
+        refferedDate: '02/04/02',
+        interval: '3 meses'
+      },
+      {
+        user: 'Adm',
+        queryDate: '04/01/01',
+        type: 'CNPJ',
+        document: '123.456.456', 
+        refferedDate: '02/05/02',
+        interval: '9 meses'
+      }
+    ];
+    
+    this.data = Data; // Assign data to the dataSource
   }
 
   /**
@@ -53,7 +67,7 @@ export class TableDataSource extends DataSource<TableItem> {
    * the returned stream emits new items.
    * @returns A stream of the items to be rendered.
    */
-  connect(): Observable<TableItem[]> {
+  connect(): Observable<TableItem[]> {    
     // Combine everything that affects the rendered data into one update
     // stream for the data-table to consume.
     const dataMutations = [
@@ -79,13 +93,9 @@ export class TableDataSource extends DataSource<TableItem> {
    */
   private getPagedData(data: TableItem[]) {
     const startIndex = this.paginator.pageIndex * this.paginator.pageSize;
-    return data.splice(startIndex, this.paginator.pageSize);
+    return data.slice(startIndex, startIndex + this.paginator.pageSize);
   }
 
-  /**
-   * Sort the data (client-side). If you're using server-side sorting,
-   * this would be replaced by requesting the appropriate data from the server.
-   */
   private getSortedData(data: TableItem[]) {
     if (!this.sort.active || this.sort.direction === '') {
       return data;
@@ -94,8 +104,12 @@ export class TableDataSource extends DataSource<TableItem> {
     return data.sort((a, b) => {
       const isAsc = this.sort.direction === 'asc';
       switch (this.sort.active) {
-        case 'name': return compare(a.name, b.name, isAsc);
-        case 'id': return compare(+a.id, +b.id, isAsc);
+        case 'user': return compare(a.user, b.user, isAsc);
+        case 'queryDate': return compare(a.queryDate, b.queryDate, isAsc);
+        case 'type': return compare(a.type, b.type, isAsc);
+        case 'document': return compare(a.document, b.document, isAsc);
+        case 'refferedDate': return compare(a.refferedDate, b.refferedDate, isAsc);
+        case 'interval': return compare(a.interval, b.interval, isAsc);
         default: return 0;
       }
     });
