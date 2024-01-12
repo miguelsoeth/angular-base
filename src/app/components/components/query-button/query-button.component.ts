@@ -4,6 +4,7 @@ import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import * as moment from 'moment';
 import { UserService } from '../../template/user.service';
+import { QueryHistoryModel, QueryHistoryResponse } from './query-history.model';
 
 export interface DialogData {
   type: string;
@@ -75,23 +76,45 @@ export class QueryButtonDialog implements OnInit{
     interval: 0
   };
 
+  qhModel: QueryHistoryModel = {
+    username: '',
+    type: '',
+    document: '',
+    referredDate: '',
+    interval: '',
+  }
+
+  qhData: QueryHistoryResponse = {
+    id: 0,
+    username: '',
+    querydate: '',
+    type: '',
+    document: '',
+    referreddate: '',
+    interval: '',
+  }
+
   closeDialog(): void {
     this.dialogRef.close();
   }
 
   search(): void {
-    this.userServiceData.getUsername;
-    this.data.type = this.myForm.value.typeField;
-    this.data.date = moment(this.myForm.value.dateField).format('DDMMYYYY');
-    this.data.document = this.myForm.value.documentField;
-    this.data.interval = this.myForm.value.intervalField;
-    console.log(this.data);
-    
+    this.qhModel.username = this.userServiceData.getUsername;
+    this.qhModel.type = this.myForm.value.typeField;
+    this.qhModel.referredDate = moment(this.myForm.value.dateField).format('YYYY-MM-DD');
+    this.qhModel.document = this.myForm.value.documentField;
+    this.qhModel.interval = this.myForm.value.intervalField.toString();
+    console.log(this.qhModel);
+    /*
     const intervalMonths: number = parseInt(this.myForm.value.intervalField);
     const currentDate = moment(this.myForm.value.dateField);
     const newDate = currentDate.subtract(intervalMonths, 'months');
     console.log(newDate.format('DDMMYYYY').toString());
+    */
     this.queryHistoryService.showMessage("Buscando...");
+    this.queryHistoryService.insertQueryHistory(this.qhModel).subscribe(() => {
+      console.log("Pesquisa armazenada no histórico!");
+    });
     this.dialogRef.close();
   }
 }
