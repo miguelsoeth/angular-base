@@ -1,14 +1,14 @@
 <div>
   <table mat-table class="full-width-table" matSort aria-label="Elements">
     <!-- User Column -->
-    <ng-container matColumnDef="user">
+    <ng-container matColumnDef="username">
       <th mat-header-cell *matHeaderCellDef mat-sort-header>USUÁRIO</th>
-      <td mat-cell *matCellDef="let row">{{row.user}}</td>
+      <td mat-cell *matCellDef="let row">{{row.username}}</td>
     </ng-container>
     <!-- queryDate Column -->
-    <ng-container matColumnDef="queryDate">
+    <ng-container matColumnDef="querydate">
       <th mat-header-cell *matHeaderCellDef mat-sort-header>DATA DA CONSULTA</th>
-      <td mat-cell *matCellDef="let row">{{row.queryDate}}</td>
+      <td mat-cell *matCellDef="let row">{{row.querydate | customQueryDate}}</td>
     </ng-container>
     <!-- type Column -->
     <ng-container matColumnDef="type">
@@ -18,12 +18,19 @@
     <!-- document Column -->
     <ng-container matColumnDef="document">
       <th mat-header-cell *matHeaderCellDef mat-sort-header>CODIGO</th>
-      <td mat-cell *matCellDef="let row">{{row.document}}</td>
+      <td mat-cell *matCellDef="let row">
+        <ng-container *ngIf="row.type === 'CPF'; else otherMask">
+          {{ row.document | mask: '000.000.000-00' }}
+        </ng-container>
+        <ng-template #otherMask>
+          {{ row.document | mask: '00.000.000/0000-00' }}
+        </ng-template>
+      </td>
     </ng-container>
     <!-- refferedDate Column -->
-    <ng-container matColumnDef="refferedDate">
+    <ng-container matColumnDef="referreddate">
       <th mat-header-cell *matHeaderCellDef mat-sort-header>DATA REFERÊNCIA</th>
-      <td mat-cell *matCellDef="let row">{{row.refferedDate}}</td>
+      <td mat-cell *matCellDef="let row">{{row.referreddate | customReferredDate}}</td>
     </ng-container>
     <!-- interval Column -->
     <ng-container matColumnDef="interval">

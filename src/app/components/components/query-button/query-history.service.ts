@@ -24,4 +24,8 @@ export class QueryHistoryService {
   insertQueryHistory(qhModel: QueryHistoryModel): Observable<QueryHistoryResponse> {
     return this.http.post<QueryHistoryResponse>(this.baseUrl, qhModel);
   }
+
+  readQueryHistory(): Observable<QueryHistoryResponse[]> {
+    return this.http.get<QueryHistoryResponse[]>(this.baseUrl)
+  }
 }

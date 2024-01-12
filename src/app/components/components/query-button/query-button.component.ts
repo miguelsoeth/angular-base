@@ -4,14 +4,8 @@ import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import * as moment from 'moment';
 import { UserService } from '../../template/user.service';
-import { QueryHistoryModel, QueryHistoryResponse } from './query-history.model';
-
-export interface DialogData {
-  type: string;
-  document: string;
-  date: string;
-  interval: number;
-}
+import { QueryHistoryModel } from './query-history.model';
+import { MatDatepickerInputEvent } from '@angular/material/datepicker';
 
 @Component({
   selector: 'app-query-button',
@@ -47,6 +41,11 @@ export class QueryButtonDialog implements OnInit{
     { label: '6 meses', value: 6 },
     { label: '1 ano', value: 12 }
   ];
+  maxDate = new Date();
+
+  addEvent(type: string, event: MatDatepickerInputEvent<Date>) {
+    console.log(`${type}: ${event.value}`);
+  }
 
   constructor(
     public dialogRef: MatDialogRef<QueryButtonDialog>,
@@ -68,29 +67,12 @@ export class QueryButtonDialog implements OnInit{
       }
     });
   }
-  
-  data: DialogData = {
-    type: '',
-    document: '',
-    date: '',
-    interval: 0
-  };
 
   qhModel: QueryHistoryModel = {
     username: '',
     type: '',
     document: '',
     referredDate: '',
-    interval: '',
-  }
-
-  qhData: QueryHistoryResponse = {
-    id: 0,
-    username: '',
-    querydate: '',
-    type: '',
-    document: '',
-    referreddate: '',
     interval: '',
   }
 

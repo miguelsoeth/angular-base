@@ -12,7 +12,7 @@
     <!--CAMPO DE ESCOLHA DE DATA-->
     <mat-form-field appearance="fill" class="date-picker">
       <mat-label>Data referência:</mat-label>
-      <input matInput [matDatepicker]="picker" formControlName="dateField" required>
+      <input matInput [matDatepicker]="picker" formControlName="dateField" [max]="maxDate" required>
       <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
       <mat-datepicker #picker></mat-datepicker>
     </mat-form-field>
