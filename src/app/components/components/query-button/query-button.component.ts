@@ -1,3 +1,4 @@
+import { QuerySearchService } from './query-search.service';
 import { QueryHistoryService } from './query-history.service';
 import { Component, OnInit } from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
@@ -39,7 +40,8 @@ export class QueryButtonDialog implements OnInit{
   dateInterval: { label: string; value: number }[] = [
     { label: '3 meses', value: 3 },
     { label: '6 meses', value: 6 },
-    { label: '1 ano', value: 12 }
+    { label: '1 ano', value: 12 },
+    { label: '10 anos', value: 120}
   ];
   maxDate = new Date();
 
@@ -51,7 +53,8 @@ export class QueryButtonDialog implements OnInit{
     public dialogRef: MatDialogRef<QueryButtonDialog>,
     private formBuilder: FormBuilder,
     private userServiceData: UserService,
-    private queryHistoryService: QueryHistoryService) {}
+    private queryHistoryService: QueryHistoryService,
+    private querySearchService: QuerySearchService) {}
 
   ngOnInit(): void {
     this.myForm = this.formBuilder.group({
@@ -89,9 +92,38 @@ export class QueryButtonDialog implements OnInit{
     
     this.queryHistoryService.showMessage("Buscando...");
 
+    const intervalMonths: number = parseInt(this.myForm.value.intervalField);
+    const currentDate = moment(this.myForm.value.dateField);
+    const newDate = currentDate.subtract(intervalMonths, 'months').format('DD/MM/YYYY').toString();
+
     this.queryHistoryService.insertQueryHistory(this.qhModel).subscribe(() => {
       console.log("Pesquisa armazenada no histórico!");
     });
+
+    if (this.qhModel.type === "CPF") {
+      this.querySearchService.getPepData(this.qhModel.document, newDate, moment(this.myForm.value.dateField).format('DD/MM/YYYY')).subscribe(
+        (result) => {
+          console.log('API Response:', result);
+          // Handle the result as needed
+        },
+        (error) => {
+          console.error('API Error:', error);
+          // Handle errors
+        }
+      );
+    }
+    else {
+      this.querySearchService.getCepimData(this.qhModel.document, newDate, moment(this.myForm.value.dateField).format('DD/MM/YYYY')).subscribe(
+        (result) => {
+          console.log('API Response:', result);
+          // Handle the result as needed
+        },
+        (error) => {
+          console.error('API Error:', error);
+          // Handle errors
+        }
+      );
+    }
     this.dialogRef.close();
   }
 }
@@ -100,5 +132,5 @@ export class QueryButtonDialog implements OnInit{
   const intervalMonths: number = parseInt(this.myForm.value.intervalField);
   const currentDate = moment(this.myForm.value.dateField);
   const newDate = currentDate.subtract(intervalMonths, 'months');
-  console.log(newDate.format('DDMMYYYY').toString());
+  console.log(newDate.format('DD/MM/YYYY').toString());
 */
