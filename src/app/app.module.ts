@@ -29,7 +29,6 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { HttpClientModule } from '@angular/common/http';
-import { CpfFormatPipe } from './components/components/cpf-format.pipe';
 import { CustomQueryDatePipe, CustomReferredDatePipe } from './components/components/date-format.pipe';
 
 const MY_DATE_FORMAT = {
@@ -54,7 +53,6 @@ const MY_DATE_FORMAT = {
     QueryButtonComponent,
     QueryButtonDialog,
     TableComponent,
-    CpfFormatPipe,
     CustomQueryDatePipe,
     CustomReferredDatePipe
   ],

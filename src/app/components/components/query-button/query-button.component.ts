@@ -86,17 +86,19 @@ export class QueryButtonDialog implements OnInit{
     this.qhModel.referredDate = moment(this.myForm.value.dateField).format('YYYY-MM-DD');
     this.qhModel.document = this.myForm.value.documentField;
     this.qhModel.interval = this.myForm.value.intervalField.toString();
-    console.log(this.qhModel);
-    /*
-    const intervalMonths: number = parseInt(this.myForm.value.intervalField);
-    const currentDate = moment(this.myForm.value.dateField);
-    const newDate = currentDate.subtract(intervalMonths, 'months');
-    console.log(newDate.format('DDMMYYYY').toString());
-    */
+    
     this.queryHistoryService.showMessage("Buscando...");
+
     this.queryHistoryService.insertQueryHistory(this.qhModel).subscribe(() => {
       console.log("Pesquisa armazenada no histórico!");
     });
     this.dialogRef.close();
   }
 }
+
+/*
+  const intervalMonths: number = parseInt(this.myForm.value.intervalField);
+  const currentDate = moment(this.myForm.value.dateField);
+  const newDate = currentDate.subtract(intervalMonths, 'months');
+  console.log(newDate.format('DDMMYYYY').toString());
+*/
