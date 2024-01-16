@@ -4,7 +4,7 @@ import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import * as moment from 'moment';
 import { UserService } from '../../template/user.service';
-import { QueryHistoryModel } from './query-history.model';
+import { QueryHistoryModel } from './query.model';
 import { MatDatepickerInputEvent } from '@angular/material/datepicker';
 
 @Component({

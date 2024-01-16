@@ -1,9 +1,8 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar'
-import { QueryHistoryModel, QueryHistoryResponse } from './query-history.model';
 import { Observable } from 'rxjs';
-import { CepimResponse, PepResponse } from './query-search.model';
+import { CepimResponse, PepResponse, QueryHistoryModel, QueryHistoryResponse } from './query.model';
 
 @Injectable({
   providedIn: 'root'

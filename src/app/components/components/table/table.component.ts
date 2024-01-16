@@ -5,7 +5,7 @@ import { MatSort } from '@angular/material/sort';
 import { MatTable } from '@angular/material/table';
 import { TableDataSource } from './table-datasource';
 import { QueryService } from '../query-button/query.service';
-import { QueryHistoryResponse } from '../query-button/query-history.model';
+import { QueryHistoryResponse } from '../query-button/query.model';
 
 @Component({
   selector: 'app-table',

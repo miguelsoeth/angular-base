@@ -3,7 +3,7 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { map } from 'rxjs/operators';
 import { Observable, of as observableOf, merge } from 'rxjs';
-import { QueryHistoryResponse } from '../query-button/query-history.model';
+import { QueryHistoryResponse } from '../query-button/query.model';
 import { QueryService } from '../query-button/query.service';
 
 export class TableDataSource extends DataSource<QueryHistoryResponse> {
