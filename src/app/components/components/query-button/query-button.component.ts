@@ -75,6 +75,7 @@ export class QueryButtonDialog implements OnInit{
     document: '',
     referredDate: '',
     interval: '',
+    interval_label: '',
   }
 
   closeDialog(): void {
@@ -87,20 +88,25 @@ export class QueryButtonDialog implements OnInit{
     this.qhModel.referredDate = moment(this.myForm.value.dateField).format('YYYY-MM-DD');
     this.qhModel.document = this.myForm.value.documentField;
     this.qhModel.interval = this.myForm.value.intervalField.toString();
-    const intervalMonths: number = parseInt(this.myForm.value.intervalField);
-    const dataFinal = moment(this.myForm.value.dateField);
-    const dataInicial = dataFinal.subtract(intervalMonths, 'months').format('DD/MM/YYYY').toString();
 
-    this.queryService.showMessage("Buscando...");    
+    const selectedInterval = this.dateInterval.find(interval => interval.value === this.myForm.value.intervalField);
+    this.qhModel.interval_label = selectedInterval.label;
+
+    const dataFinal = moment(this.myForm.value.dateField);
+    const dataInicial = dataFinal.clone().subtract(this.myForm.value.intervalField, 'months').format('DD/MM/YYYY');
+    this.queryService.showMessage("Buscando...");
 
     if (this.qhModel.type === "CPF") {
       if (this.queryService.validateCpf(this.qhModel.document)) {
         this.queryService.getPepData(this.qhModel.document, dataInicial, dataFinal.format('DD/MM/YYYY')).subscribe(
           (result) => {
             console.log('API Response:', result);
-            this.queryService.insertQueryHistory(this.qhModel);
+            console.log(this.qhModel);
+            this.queryService.insertQueryHistory(this.qhModel).subscribe(
+              
+            );
             this.dialogRef.close();
-          }   
+          }
         );
       }
       else {
@@ -111,7 +117,9 @@ export class QueryButtonDialog implements OnInit{
       this.queryService.getCepimData(this.qhModel.document, dataInicial, dataFinal.format('DD/MM/YYYY')).subscribe(
         (result) => {
           console.log('API Response:', result);
-          this.queryService.insertQueryHistory(this.qhModel);
+          this.queryService.insertQueryHistory(this.qhModel).subscribe(
+            
+          );
           this.dialogRef.close();
         }
       );

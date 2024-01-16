@@ -10,7 +10,7 @@ import { CepimResponse, PepResponse } from './query-search.model';
 })
 export class QueryService {
 
-  baseUrl = "https://localhost:7222/api/queryHistory";
+  private queryHistoryUrl = "https://localhost:7222/api/queryHistory";
   private pepUrl = "https://localhost:7222/api/PepCpf";
   private cepimUrl = "https://localhost:7222/api/CepimCnpj";
 
@@ -26,15 +26,15 @@ export class QueryService {
 
   insertQueryHistory(qhModel: QueryHistoryModel): Observable<QueryHistoryResponse> {
     if (qhModel.type === "CPF") {
-      return this.http.post<QueryHistoryResponse>(this.baseUrl, qhModel);
+      return this.http.post<QueryHistoryResponse>(this.queryHistoryUrl, qhModel);
     }
     else {
-      return this.http.post<QueryHistoryResponse>(this.baseUrl, qhModel);
+      return this.http.post<QueryHistoryResponse>(this.queryHistoryUrl, qhModel);
     }
   }
 
   readQueryHistory(): Observable<QueryHistoryResponse[]> {
-    return this.http.get<QueryHistoryResponse[]>(this.baseUrl);
+    return this.http.get<QueryHistoryResponse[]>(this.queryHistoryUrl);
   }
 
   getPepData(cpf: string, periodoInicial: string, periodoFinal: string): Observable<PepResponse[]> {

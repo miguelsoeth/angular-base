@@ -4,6 +4,7 @@ export interface QueryHistoryModel {
     document: string
     referredDate: string
     interval: string
+    interval_label: string
 }
 
 export interface QueryHistoryResponse {
@@ -14,5 +15,6 @@ export interface QueryHistoryResponse {
     document?: string;
     referreddate: string;
     interval?: string;
+    interval_label: string;
   }
   

@@ -25,7 +25,8 @@ export class TableDataSource extends DataSource<QueryHistoryResponse> {
         type: item.type,
         document: item.document,
         referreddate: item.referreddate,
-        interval: item.interval
+        interval: item.interval,
+        interval_label: item.interval_label
       }));
     });
   }
@@ -78,6 +79,7 @@ export class TableDataSource extends DataSource<QueryHistoryResponse> {
         case 'document': return compare(a.document, b.document, isAsc);
         case 'referreddate': return compare(a.referreddate, b.referreddate, isAsc);
         case 'interval': return compare(a.interval, b.interval, isAsc);
+        case 'interval_label': return compare(a.interval, b.interval, isAsc);
         default: return 0;
       }
     });
