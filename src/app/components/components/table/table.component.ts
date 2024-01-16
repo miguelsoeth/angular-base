@@ -4,7 +4,7 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTable } from '@angular/material/table';
 import { TableDataSource } from './table-datasource';
-import { QueryHistoryService } from '../query-button/query-history.service';
+import { QueryService } from '../query-button/query.service';
 import { QueryHistoryResponse } from '../query-button/query-history.model';
 
 @Component({
@@ -21,10 +21,10 @@ export class TableComponent implements AfterViewInit, OnInit {
   /** Columns displayed in the table. Columns IDs can be added, removed, or reordered. */
   displayedColumns = ['username', 'querydate', 'type', 'document', 'referreddate', 'interval'];
   
-  constructor(private qhService: QueryHistoryService) {}
+  constructor(private qService: QueryService) {}
 
   ngOnInit() {
-    this.dataSource = new TableDataSource(this.qhService);
+    this.dataSource = new TableDataSource(this.qService);
   }
 
   ngAfterViewInit() {

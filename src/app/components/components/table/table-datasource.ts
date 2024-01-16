@@ -4,21 +4,21 @@ import { MatSort } from '@angular/material/sort';
 import { map } from 'rxjs/operators';
 import { Observable, of as observableOf, merge } from 'rxjs';
 import { QueryHistoryResponse } from '../query-button/query-history.model';
-import { QueryHistoryService } from '../query-button/query-history.service';
+import { QueryService } from '../query-button/query.service';
 
 export class TableDataSource extends DataSource<QueryHistoryResponse> {
   data: QueryHistoryResponse[];
   paginator: MatPaginator;
   sort: MatSort;
 
-  constructor(private qhService: QueryHistoryService) {
+  constructor(private qService: QueryService) {
     super();
     this.initializeData();
   }
 
   private initializeData()  {
     const Data: QueryHistoryResponse[] = [];
-    this.qhService.readQueryHistory().subscribe((qData: QueryHistoryResponse[]) => {
+    this.qService.readQueryHistory().subscribe((qData: QueryHistoryResponse[]) => {
       this.data = qData.map(item => ({
         username: item.username,
         querydate: item.querydate,

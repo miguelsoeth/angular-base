@@ -1,21 +1,24 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar'
 import { QueryHistoryModel, QueryHistoryResponse } from './query-history.model';
 import { Observable } from 'rxjs';
+import { CepimResponse, PepResponse } from './query-search.model';
 
 @Injectable({
   providedIn: 'root'
 })
-export class QueryHistoryService {
+export class QueryService {
 
   baseUrl = "https://localhost:7222/api/queryHistory";
+  private pepUrl = "https://localhost:7222/api/PepCpf";
+  private cepimUrl = "https://localhost:7222/api/CepimCnpj";
 
   constructor(private snackBar: MatSnackBar, private http: HttpClient) { }
 
   showMessage(msg: string): void {
     this.snackBar.open(msg, '', {
-      duration: 3000,
+      duration: 5000,
       horizontalPosition: "right",
       verticalPosition: "top"
     })
@@ -23,25 +26,31 @@ export class QueryHistoryService {
 
   insertQueryHistory(qhModel: QueryHistoryModel): Observable<QueryHistoryResponse> {
     if (qhModel.type === "CPF") {
-      if (this.validateCpf(qhModel.document)) {
-        return this.http.post<QueryHistoryResponse>(this.baseUrl, qhModel);
-      }
-      else {
-        this.showMessage("CPF INVÁLIDO!");
-      } 
+      return this.http.post<QueryHistoryResponse>(this.baseUrl, qhModel);
     }
     else {
-      if (this.validateCnpj(qhModel.document)) {
-        return this.http.post<QueryHistoryResponse>(this.baseUrl, qhModel);
-      }
-      else {
-        this.showMessage("CNPJ INVÁLIDO!");
-      }
+      return this.http.post<QueryHistoryResponse>(this.baseUrl, qhModel);
     }
   }
 
   readQueryHistory(): Observable<QueryHistoryResponse[]> {
     return this.http.get<QueryHistoryResponse[]>(this.baseUrl);
+  }
+
+  getPepData(cpf: string, periodoInicial: string, periodoFinal: string): Observable<PepResponse[]> {
+    const params = new HttpParams()
+      .set('cpf', cpf)
+      .set('periodoInicial', periodoInicial)
+      .set('periodoFinal', periodoFinal);
+    return this.http.get<PepResponse[]>(this.pepUrl, { params });
+  }
+
+  getCepimData(cnpj: string, periodoInicial: string, periodoFinal: string): Observable<CepimResponse[]> {
+    const params = new HttpParams()
+      .set('cnpj', cnpj)
+      .set('periodoInicial', periodoInicial)
+      .set('periodoFinal', periodoFinal);
+    return this.http.get<CepimResponse[]>(this.cepimUrl, { params });
   }
 
   validateCpf(cpf: string): boolean {

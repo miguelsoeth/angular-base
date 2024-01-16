@@ -1,5 +1,4 @@
-import { QuerySearchService } from './query-search.service';
-import { QueryHistoryService } from './query-history.service';
+import { QueryService } from './query.service';
 import { Component, OnInit } from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
@@ -53,8 +52,7 @@ export class QueryButtonDialog implements OnInit{
     public dialogRef: MatDialogRef<QueryButtonDialog>,
     private formBuilder: FormBuilder,
     private userServiceData: UserService,
-    private queryHistoryService: QueryHistoryService,
-    private querySearchService: QuerySearchService) {}
+    private queryService: QueryService) {}
 
   ngOnInit(): void {
     this.myForm = this.formBuilder.group({
@@ -89,48 +87,39 @@ export class QueryButtonDialog implements OnInit{
     this.qhModel.referredDate = moment(this.myForm.value.dateField).format('YYYY-MM-DD');
     this.qhModel.document = this.myForm.value.documentField;
     this.qhModel.interval = this.myForm.value.intervalField.toString();
-    
-    this.queryHistoryService.showMessage("Buscando...");
-
     const intervalMonths: number = parseInt(this.myForm.value.intervalField);
-    const currentDate = moment(this.myForm.value.dateField);
-    const newDate = currentDate.subtract(intervalMonths, 'months').format('DD/MM/YYYY').toString();
+    const dataFinal = moment(this.myForm.value.dateField);
+    const dataInicial = dataFinal.subtract(intervalMonths, 'months').format('DD/MM/YYYY').toString();
 
-    this.queryHistoryService.insertQueryHistory(this.qhModel).subscribe(() => {
-      console.log("Pesquisa armazenada no histórico!");
-    });
+    this.queryService.showMessage("Buscando...");    
 
     if (this.qhModel.type === "CPF") {
-      this.querySearchService.getPepData(this.qhModel.document, newDate, moment(this.myForm.value.dateField).format('DD/MM/YYYY')).subscribe(
+      if (this.queryService.validateCpf(this.qhModel.document)) {
+        this.queryService.getPepData(this.qhModel.document, dataInicial, dataFinal.format('DD/MM/YYYY')).subscribe(
+          (result) => {
+            console.log('API Response:', result);
+            this.queryService.insertQueryHistory(this.qhModel);
+            this.dialogRef.close();
+          }   
+        );
+      }
+      else {
+        this.queryService.showMessage("CPF Inválido!");
+      }         
+    }
+    else if (this.queryService.validateCnpj(this.qhModel.document)) {
+      this.queryService.getCepimData(this.qhModel.document, dataInicial, dataFinal.format('DD/MM/YYYY')).subscribe(
         (result) => {
           console.log('API Response:', result);
-          // Handle the result as needed
-        },
-        (error) => {
-          console.error('API Error:', error);
-          // Handle errors
+          this.queryService.insertQueryHistory(this.qhModel);
+          this.dialogRef.close();
         }
       );
     }
     else {
-      this.querySearchService.getCepimData(this.qhModel.document, newDate, moment(this.myForm.value.dateField).format('DD/MM/YYYY')).subscribe(
-        (result) => {
-          console.log('API Response:', result);
-          // Handle the result as needed
-        },
-        (error) => {
-          console.error('API Error:', error);
-          // Handle errors
-        }
-      );
+      this.queryService.showMessage("CNPJ Inválido!");
     }
-    this.dialogRef.close();
+    
   }
 }
 
-/*
-  const intervalMonths: number = parseInt(this.myForm.value.intervalField);
-  const currentDate = moment(this.myForm.value.dateField);
-  const newDate = currentDate.subtract(intervalMonths, 'months');
-  console.log(newDate.format('DD/MM/YYYY').toString());
-*/
