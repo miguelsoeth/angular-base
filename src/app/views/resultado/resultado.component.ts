@@ -50,7 +50,8 @@ export class ResultadoComponent implements OnInit {
         this.qService.showMessage("Erro...");
         break;
       }
-    }    
+    }
+    this.qService.showMessage("Busca concluída!");
   }
 
 }

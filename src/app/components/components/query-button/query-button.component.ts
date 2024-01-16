@@ -98,8 +98,6 @@ export class QueryButtonDialog implements OnInit{
     const dataFinal = moment(this.myForm.value.dateField);
     const dataInicial = dataFinal.clone().subtract(this.myForm.value.intervalField, 'months').format('DD/MM/YYYY');
 
-    this.queryService.showMessage("Buscando...");
-
     switch (this.qhModel.type) {
       case "CPF": {
         if (this.queryService.validateCpf(this.qhModel.document)) {
