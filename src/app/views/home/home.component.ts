@@ -1,3 +1,4 @@
+import { UserService } from './../../components/template/user.service';
 import { Component, OnInit } from '@angular/core';
 import { HeaderService } from 'src/app/components/template/header/header.service';
 
@@ -8,13 +9,15 @@ import { HeaderService } from 'src/app/components/template/header/header.service
 })
 export class HomeComponent implements OnInit {
 
-  constructor(private headerService: HeaderService) {
+  constructor(private userService: UserService, private headerService: HeaderService) {
     headerService.HeaderData = {
       title: "Início",
       icon: 'home',
       routeUrl: ''
     }
   }
+
+  public username: string = this.userService.getUsername;
 
   ngOnInit(): void {
   }

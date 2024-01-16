@@ -8,6 +8,6 @@ export class UserService {
   constructor() { }
 
   public get getUsername(): string {
-    return 'ADMINISTRADOR';
+    return 'Administrador';
   }
 }

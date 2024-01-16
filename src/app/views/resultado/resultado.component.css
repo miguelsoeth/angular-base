@@ -1,0 +1,14 @@
+.result {
+    display: flex;
+    flex-direction: column;
+    background-color: white;
+}
+.title {
+    padding: 1%;
+}
+.pep-table {
+    padding: 2% 0%;
+}
+.cepim-table {
+    padding: 2% 0%;
+}

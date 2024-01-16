@@ -6,6 +6,7 @@ import * as moment from 'moment';
 import { UserService } from '../../template/user.service';
 import { QueryHistoryModel } from './query.model';
 import { MatDatepickerInputEvent } from '@angular/material/datepicker';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-query-button',
@@ -40,9 +41,10 @@ export class QueryButtonDialog implements OnInit{
     { label: '3 meses', value: 3 },
     { label: '6 meses', value: 6 },
     { label: '1 ano', value: 12 },
+    { label: '5 anos', value: 60 },
     { label: '10 anos', value: 120}
   ];
-  maxDate = new Date();
+  maxDate = new Date();    
 
   addEvent(type: string, event: MatDatepickerInputEvent<Date>) {
     console.log(`${type}: ${event.value}`);
@@ -52,6 +54,7 @@ export class QueryButtonDialog implements OnInit{
     public dialogRef: MatDialogRef<QueryButtonDialog>,
     private formBuilder: FormBuilder,
     private userServiceData: UserService,
+    private router: Router,
     private queryService: QueryService) {}
 
   ngOnInit(): void {
@@ -94,40 +97,49 @@ export class QueryButtonDialog implements OnInit{
 
     const dataFinal = moment(this.myForm.value.dateField);
     const dataInicial = dataFinal.clone().subtract(this.myForm.value.intervalField, 'months').format('DD/MM/YYYY');
+
     this.queryService.showMessage("Buscando...");
 
-    if (this.qhModel.type === "CPF") {
-      if (this.queryService.validateCpf(this.qhModel.document)) {
-        this.queryService.getPepData(this.qhModel.document, dataInicial, dataFinal.format('DD/MM/YYYY')).subscribe(
-          (result) => {
-            console.log('API Response:', result);
-            console.log(this.qhModel);
-            this.queryService.insertQueryHistory(this.qhModel).subscribe(
-              
-            );
-            this.dialogRef.close();
-          }
-        );
-      }
-      else {
-        this.queryService.showMessage("CPF Inválido!");
-      }         
-    }
-    else if (this.queryService.validateCnpj(this.qhModel.document)) {
-      this.queryService.getCepimData(this.qhModel.document, dataInicial, dataFinal.format('DD/MM/YYYY')).subscribe(
-        (result) => {
-          console.log('API Response:', result);
-          this.queryService.insertQueryHistory(this.qhModel).subscribe(
-            
-          );
+    switch (this.qhModel.type) {
+      case "CPF": {
+        if (this.queryService.validateCpf(this.qhModel.document)) {
+          this.queryService.insertQueryHistory(this.qhModel).subscribe();
+          const queryParams = {
+            type: this.qhModel.type,
+            document: this.qhModel.document,
+            datainicial: dataInicial,
+            datafinal: dataFinal.format('DD/MM/YYYY')
+          };
+          this.router.navigate(['/consulta/resultado'], { queryParams: queryParams});
           this.dialogRef.close();
         }
-      );
+        else {
+          this.queryService.showMessage("CPF Inválido!");
+        }
+        break;
+      }
+      case "CNPJ": {
+        if (this.queryService.validateCnpj(this.qhModel.document)) {
+          this.queryService.insertQueryHistory(this.qhModel).subscribe();
+          const queryParams = {
+            type: this.qhModel.type,
+            document: this.qhModel.document,
+            datainicial: dataInicial,
+            datafinal: dataFinal.format('DD/MM/YYYY')
+          };
+          this.router.navigate(['/consulta/resultado'], { queryParams: queryParams});
+          this.dialogRef.close();
+        }
+        else {
+          this.queryService.showMessage("CNPJ Inválido!");
+        }
+        break;
+      }
+      default: {
+        console.log("tipo selecionado com erro!");
+        break;
+      }        
     }
-    else {
-      this.queryService.showMessage("CNPJ Inválido!");
-    }
-    
   }
 }
 

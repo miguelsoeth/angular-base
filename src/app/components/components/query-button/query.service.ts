@@ -17,7 +17,7 @@ export class QueryService {
 
   showMessage(msg: string): void {
     this.snackBar.open(msg, '', {
-      duration: 5000,
+      duration: 3000,
       horizontalPosition: "right",
       verticalPosition: "top"
     })
