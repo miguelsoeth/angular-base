@@ -16,7 +16,7 @@ export class PepTableComponent implements AfterViewInit, OnInit {
   dataSource: PepTableDataSource;
 
   /** Columns displayed in the table. Columns IDs can be added, removed, or reordered. */
-  displayedColumns = ['id', 'name'];
+  displayedColumns = ['cpf', 'nome', 'funcao', 'orgao', 'inicioExercicio', 'fimExercicio', 'expand'];
 
   ngOnInit() {
     this.dataSource = new PepTableDataSource();
@@ -26,5 +26,8 @@ export class PepTableComponent implements AfterViewInit, OnInit {
     this.dataSource.sort = this.sort;
     this.dataSource.paginator = this.paginator;
     this.table.dataSource = this.dataSource;
+  }
+  toggleExpansion(row: PepTableItem): void {
+    row.expanded = !row.expanded;
   }
 }

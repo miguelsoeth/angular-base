@@ -33,6 +33,8 @@ import { CustomQueryDatePipe, CustomReferredDatePipe } from './components/compon
 import { PepTableComponent } from './components/components/pep-table/pep-table.component';
 import { CepimTableComponent } from './components/components/cepim-table/cepim-table.component';
 import { ResultadoComponent } from './views/resultado/resultado.component';
+import { MatExpansionModule } from '@angular/material/expansion';
+import { TestTableComponent } from './components/components/test-table/test-table.component';
 
 const MY_DATE_FORMAT = {
   parse: {
@@ -60,7 +62,8 @@ const MY_DATE_FORMAT = {
     CustomReferredDatePipe,
     PepTableComponent,
     CepimTableComponent,
-    ResultadoComponent
+    ResultadoComponent,
+    TestTableComponent
   ],
   imports: [
     BrowserModule,
@@ -84,7 +87,8 @@ const MY_DATE_FORMAT = {
     MatPaginatorModule,
     MatSortModule,
     MatSnackBarModule,
-    HttpClientModule
+    HttpClientModule,
+    MatExpansionModule
   ],
   providers: [
     { provide: DateAdapter, useClass: MomentDateAdapter, deps: [MAT_DATE_LOCALE] },

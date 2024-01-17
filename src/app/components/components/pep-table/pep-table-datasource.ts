@@ -4,34 +4,34 @@ import { MatSort } from '@angular/material/sort';
 import { map } from 'rxjs/operators';
 import { Observable, of as observableOf, merge } from 'rxjs';
 
-// TODO: Replace this with your own data model type
 export interface PepTableItem {
-  name: string;
-  id: number;
+  cpf: string;
+  nome: string;
+  funcao: string;
+  orgao: string;
+  inicioExercicio: string;
+  fimExercicio: string;
+  expanded?: boolean;
 }
 
 // TODO: replace this with real data from your application
 const EXAMPLE_DATA: PepTableItem[] = [
-  {id: 1, name: 'Hydrogen'},
-  {id: 2, name: 'Helium'},
-  {id: 3, name: 'Lithium'},
-  {id: 4, name: 'Beryllium'},
-  {id: 5, name: 'Boron'},
-  {id: 6, name: 'Carbon'},
-  {id: 7, name: 'Nitrogen'},
-  {id: 8, name: 'Oxygen'},
-  {id: 9, name: 'Fluorine'},
-  {id: 10, name: 'Neon'},
-  {id: 11, name: 'Sodium'},
-  {id: 12, name: 'Magnesium'},
-  {id: 13, name: 'Aluminum'},
-  {id: 14, name: 'Silicon'},
-  {id: 15, name: 'Phosphorus'},
-  {id: 16, name: 'Sulfur'},
-  {id: 17, name: 'Chlorine'},
-  {id: 18, name: 'Argon'},
-  {id: 19, name: 'Potassium'},
-  {id: 20, name: 'Calcium'},
+  {
+    cpf: "***.289.837-**",
+    nome: "AÉCIO NEVES DA CUNHA",
+    funcao: "Deputado Federal",
+    orgao: "Câmara dos Deputados",
+    inicioExercicio: "2019-02-01",
+    fimExercicio: "2023-01-31"
+  },
+  {
+    cpf: "***.289.837-**",
+    nome: "AÉCIO NEVES DA CUNHA",
+    funcao: "Deputado Federal",
+    orgao: "Câmara dos Deputados",
+    inicioExercicio: "2023-02-01",
+    fimExercicio: ""
+  }
 ];
 
 /**
@@ -94,8 +94,12 @@ export class PepTableDataSource extends DataSource<PepTableItem> {
     return data.sort((a, b) => {
       const isAsc = this.sort.direction === 'asc';
       switch (this.sort.active) {
-        case 'name': return compare(a.name, b.name, isAsc);
-        case 'id': return compare(+a.id, +b.id, isAsc);
+        case 'nome': return compare(a.nome, b.nome, isAsc);
+        case 'cpf': return compare(a.cpf, b.cpf, isAsc);
+        case 'funcao': return compare(a.funcao, b.funcao, isAsc);
+        case 'orgao': return compare(a.orgao, b.orgao, isAsc);
+        case 'inicioExercicio': return compare(a.inicioExercicio, b.inicioExercicio, isAsc);
+        case 'fimExercicio': return compare(a.fimExercicio, b.fimExercicio, isAsc);
         default: return 0;
       }
     });

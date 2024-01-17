@@ -53,5 +53,4 @@ export class ResultadoComponent implements OnInit {
     }
     this.qService.showMessage("Busca concluída!");
   }
-
 }
