@@ -1,3 +1,4 @@
+import { QueryHistoryResponse } from './../query-button/query.model';
 
 import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
@@ -5,7 +6,8 @@ import { MatSort } from '@angular/material/sort';
 import { MatTable } from '@angular/material/table';
 import { TableDataSource } from './table-datasource';
 import { QueryService } from '../query-button/query.service';
-import { QueryHistoryResponse } from '../query-button/query.model';
+import { Router } from '@angular/router';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-table',
@@ -19,9 +21,9 @@ export class TableComponent implements AfterViewInit, OnInit {
   dataSource: TableDataSource;
   
   /** Columns displayed in the table. Columns IDs can be added, removed, or reordered. */
-  displayedColumns = ['username', 'querydate', 'type', 'document', 'referreddate', 'interval'];
+  displayedColumns = ['username', 'querydate', 'type', 'document', 'referreddate', 'interval', 'view'];
   
-  constructor(private qService: QueryService) {}
+  constructor(private qService: QueryService, private router: Router) {}
 
   ngOnInit() {
     this.dataSource = new TableDataSource(this.qService);
@@ -31,5 +33,18 @@ export class TableComponent implements AfterViewInit, OnInit {
     this.dataSource.sort = this.sort;
     this.dataSource.paginator = this.paginator;
     this.table.dataSource = this.dataSource;
+  }
+
+  viewQueryResult(row: QueryHistoryResponse) {
+    const dataFinal = moment(row.referreddate);
+    const dataInicial = dataFinal.clone().subtract(row.interval, 'months').format('DD/MM/YYYY');
+
+    const queryParams = {
+      type: row.type,
+      document: row.document,
+      datainicial: dataInicial,
+      datafinal: dataFinal.format('DD/MM/YYYY')
+    };
+    this.router.navigate(['/consulta/resultado'], { queryParams: queryParams});
   }
 }

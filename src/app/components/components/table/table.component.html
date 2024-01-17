@@ -37,6 +37,15 @@
       <th mat-header-cell *matHeaderCellDef mat-sort-header>INTERVALO</th>
       <td mat-cell *matCellDef="let row">{{row.interval_label}}</td>
     </ng-container>
+    <!-- view Column -->
+    <ng-container matColumnDef="view">
+      <th mat-header-cell *matHeaderCellDef></th>
+      <td mat-cell *matCellDef="let row">
+        <button mat-button color="white" (click)="viewQueryResult(row)">
+          <i class="material-icons">visibility</i>
+        </button>
+      </td>
+    </ng-container>
     
 
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
