@@ -1,6 +1,7 @@
 <mat-card class="result mat-elevation-z2">
     <mat-card-title class="title">Poder executivo Federal</mat-card-title>
-    <app-pep-table [data]="responseArray"></app-pep-table>
+    <app-pep-table *ngIf="queryParams.type === 'CPF'" [data]="responseArray"></app-pep-table>
+    <app-cepim-table *ngIf="queryParams.type === 'CNPJ'" [data]="responseArray"></app-cepim-table>
 </mat-card>
 
 

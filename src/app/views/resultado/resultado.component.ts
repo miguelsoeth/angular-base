@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { PepResponse } from 'src/app/components/components/query-button/query.model';
+import { CepimResponse, PepResponse } from 'src/app/components/components/query-button/query.model';
 import { QueryService } from 'src/app/components/components/query-button/query.service';
 import { HeaderService } from 'src/app/components/template/header/header.service';
 
@@ -11,7 +11,7 @@ import { HeaderService } from 'src/app/components/template/header/header.service
 })
 export class ResultadoComponent implements OnInit {
   queryParams: any;
-  responseArray: PepResponse[];
+  responseArray: PepResponse[] | CepimResponse[];
 
   constructor(private route: ActivatedRoute, headerService: HeaderService, private qService: QueryService) {
     headerService.HeaderData = {
@@ -41,7 +41,7 @@ export class ResultadoComponent implements OnInit {
         this.qService.getCepimData(this.queryParams.document, this.queryParams.datainicial, this.queryParams.datafinal).subscribe(
           (result) => {
             console.log('API Response:', result);
-            
+            this.responseArray = result;
           },
           (error) => {
             this.qService.showMessage(error.error);

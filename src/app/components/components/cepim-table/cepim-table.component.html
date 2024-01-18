@@ -1,26 +1,109 @@
 <div class="mat-elevation-z2">
   <h2 class="table-title">CEPIM</h2>
-  <table mat-table class="full-width-table" matSort aria-label="Elements">
-    <!-- Id Column -->
-    <ng-container matColumnDef="id">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header>Id</th>
-      <td mat-cell *matCellDef="let row">{{row.id}}</td>
+  <table mat-table [dataSource]="dataSource" multiTemplateDataRows>
+    <!--cnpj Column-->
+    <ng-container matColumnDef="cnpjFormatado">
+      <th mat-header-cell *matHeaderCellDef>CNPJ</th>
+      <td mat-cell *matCellDef="let row">{{ row.pessoaJuridica.cnpjFormatado }} </td>
+    </ng-container>
+    <!--nome Column-->
+    <ng-container matColumnDef="nome">
+      <th mat-header-cell *matHeaderCellDef>Nome</th>
+      <td mat-cell *matCellDef="let row">{{ row.pessoaJuridica.nome }}</td>
+    </ng-container>
+    <!--motivo Column-->
+    <ng-container matColumnDef="motivo">
+      <th mat-header-cell *matHeaderCellDef>Motivo</th>
+      <td mat-cell *matCellDef="let row">{{ row.motivo }}</td>
+    </ng-container>
+    <!--data ref Column-->
+    <ng-container matColumnDef="dataReferencia">
+      <th mat-header-cell *matHeaderCellDef>Data Referência</th>
+      <td mat-cell *matCellDef="let row">{{ row.dataReferencia }}</td>
+    </ng-container>
+    <!--botao expand Column-->
+    <ng-container matColumnDef="expand">
+      <th mat-header-cell *matHeaderCellDef></th>
+      <td mat-cell *matCellDef="let element">
+        <button mat-icon-button (click)="expandedElement = expandedElement === element ? null : element">
+          <i class="material-icons"> {{expandedElement === element ? 'expand_less' : 'expand_more'}} </i>
+        </button>
+      </td>
+    </ng-container>
+    <!-- expand content Column -->
+    <ng-container matColumnDef="expandedDetail">
+      <td mat-cell *matCellDef="let element" [attr.colspan]="columnsToDisplay.length">
+        <div class="element-detail" [@detailExpand]="element == expandedElement ? 'expanded' : 'collapsed'">
+          <table class="orgao-superior">
+            <tr>
+              <th colspan="2">ORGÃO SUPERIOR</th>
+            </tr>
+            <tr><td class="title">Nome</td></tr>
+            <tr><td class="content">{{ element.orgaoSuperior.nome }}</td></tr>
+            <tr><td class="title">Código SIAFI</td></tr>
+            <tr><td class="content">{{ element.orgaoSuperior.codigoSIAFI }}</td></tr>
+            <tr><td class="title">CNPJ</td></tr>
+            <tr><td class="content">{{ element.orgaoSuperior.cnpj }}</td></tr>
+            <tr><td class="title">Sigla</td></tr>
+            <tr><td class="content">{{ element.orgaoSuperior.sigla }}</td></tr>
+            <tr><td class="title">Descrição Poder</td></tr>
+            <tr><td class="content">{{ element.orgaoSuperior.descricaoPoder }}</td></tr>
+          </table>
+          <table class="orgao-maximo">
+            <tr>
+              <th colspan="2">ORGÃO MÁXIMO</th>
+            </tr>
+            <tr><td class="title">Código</td></tr>
+            <tr><td class="content">{{ element.orgaoSuperior.orgaoMaximo.codigo }}</td></tr>
+            <tr><td class="title">Sigla</td></tr>
+            <tr><td class="content">{{ element.orgaoSuperior.orgaoMaximo.sigla }}</td></tr>
+            <tr><td class="title">Nome</td></tr>
+            <tr><td class="content">{{ element.orgaoSuperior.orgaoMaximo.nome }}</td></tr>
+          </table>
+        
+          <table class="pessoa-juridica">
+            <tr>
+              <th colspan="2">PESSOA JURÍDICA</th>
+            </tr>
+            <tr><td class="title">ID</td></tr>
+            <tr><td class="content">{{ element.pessoaJuridica.id }}</td></tr>
+            <tr><td class="title">CPF Formatado</td></tr>
+            <tr><td class="content">{{ element.pessoaJuridica.cpfFormatado }}</td></tr>
+            <tr><td class="title">CNPJ Formatado</td></tr>
+            <tr><td class="content">{{ element.pessoaJuridica.cnpjFormatado }}</td></tr>
+            <tr><td class="title">Número Inscrição Social</td></tr>
+            <tr><td class="content">{{ element.pessoaJuridica.numeroInscricaoSocial }}</td></tr>
+            <tr><td class="title">Nome</td></tr>
+            <tr><td class="content">{{ element.pessoaJuridica.nome }}</td></tr>
+            <tr><td class="title">Razão Social Receita</td></tr>
+            <tr><td class="content">{{ element.pessoaJuridica.razaoSocialReceita }}</td></tr>
+            <tr><td class="title">Nome Fantasia Receita</td></tr>
+            <tr><td class="content">{{ element.pessoaJuridica.nomeFantasiaReceita }}</td></tr>
+            <tr><td class="title">Tipo</td></tr>
+            <tr><td class="content">{{ element.pessoaJuridica.tipo }}</td></tr>
+          </table>
+        
+          <table class="convenio">
+            <tr>
+              <th colspan="2">CONVÊNIO</th>
+            </tr>
+            <tr><td class="title">Código</td></tr>
+            <tr><td class="content">{{ element.convenio.codigo }}</td></tr>
+            <tr><td class="title">Objeto</td></tr>
+            <tr><td class="content">{{ element.convenio.objeto }}</td></tr>
+            <tr><td class="title">Número</td></tr>
+            <tr><td class="content">{{ element.convenio.numero }}</td></tr>
+          </table>
+        </div>
+      </td>
     </ng-container>
 
-    <!-- Name Column -->
-    <ng-container matColumnDef="name">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header>Name</th>
-      <td mat-cell *matCellDef="let row">{{row.name}}</td>
-    </ng-container>
-
-    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    <tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
+    <tr mat-row *matRowDef="let element; columns: columnsToDisplay;"
+        class="element-row"
+        [class.example-expanded-row]="expandedElement === element"
+        (click)="$event.stopPropagation()">
+    </tr>
+    <tr mat-row *matRowDef="let row; columns: ['expandedDetail']" class="detail-row"></tr>
   </table>
-
-  <mat-paginator #paginator
-      [length]="dataSource?.data.length"
-      [pageIndex]="0"
-      [pageSize]="5"
-      [pageSizeOptions]="[5, 25, 50]">
-  </mat-paginator>
 </div>
