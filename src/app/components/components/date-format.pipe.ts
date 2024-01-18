@@ -2,9 +2,9 @@ import { Pipe, PipeTransform } from '@angular/core';
 import { DatePipe } from '@angular/common';
 
 @Pipe({
-  name: 'customQueryDate'
+  name: 'customDateWithTime'
 })
-export class CustomQueryDatePipe implements PipeTransform {
+export class CustomDateWithTimePipe implements PipeTransform {
   transform(value: string): string {
     if (!value) return '';
 
@@ -15,9 +15,9 @@ export class CustomQueryDatePipe implements PipeTransform {
 }
 
 @Pipe({
-    name: 'customReferredDate'
+    name: 'customDate'
   })
-  export class CustomReferredDatePipe implements PipeTransform {
+  export class CustomDatePipe implements PipeTransform {
     transform(value: string): string {
       if (!value) return '';
   

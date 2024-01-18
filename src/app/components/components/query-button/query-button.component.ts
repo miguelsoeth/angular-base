@@ -42,7 +42,8 @@ export class QueryButtonDialog implements OnInit{
     { label: '6 meses', value: 6 },
     { label: '1 ano', value: 12 },
     { label: '5 anos', value: 60 },
-    { label: '10 anos', value: 120}
+    { label: '10 anos', value: 120},
+    { label: '50 anos', value: 600},
   ];
   maxDate = new Date();    
 

@@ -4,7 +4,7 @@
     <!-- cpf Column -->
     <ng-container matColumnDef="cpf">
       <th mat-header-cell *matHeaderCellDef>CPF</th>
-      <td mat-cell *matCellDef="let row">{{row.cpf}}</td>
+      <td mat-cell *matCellDef="let row">{{ row.cpf_completo| mask: '000.000.000-00' }}</td>
     </ng-container>
     <!-- nome Column -->
     <ng-container matColumnDef="nome">
@@ -24,12 +24,12 @@
     <!-- início exercício Column -->
     <ng-container matColumnDef="inicioExercicio">
       <th mat-header-cell *matHeaderCellDef>Início Exercício</th>
-      <td mat-cell *matCellDef="let row">{{row.dataInicioExercicio}}</td>
+      <td mat-cell *matCellDef="let row">{{row.dataInicioExercicio | customDate}}</td>
     </ng-container>
     <!-- fim exercício Column -->
     <ng-container matColumnDef="fimExercicio">
       <th mat-header-cell *matHeaderCellDef>Fim Exercício</th>
-      <td mat-cell *matCellDef="let row">{{row.dataFimExercicio}}</td>
+      <td mat-cell *matCellDef="let row">{{row.dataFimExercicio | customDate}}</td>
     </ng-container>
     <!--botao expand Column-->
     <ng-container matColumnDef="expand">

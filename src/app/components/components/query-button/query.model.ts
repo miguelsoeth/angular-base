@@ -29,6 +29,7 @@ export interface PepResponse {
     siglaFuncao: string;
     nivelFuncao: string;
     dataFimCarencia: string;
+    cpf_completo?: string;
 }
 
 export interface CepimResponse {

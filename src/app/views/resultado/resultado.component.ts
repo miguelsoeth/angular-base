@@ -29,8 +29,7 @@ export class ResultadoComponent implements OnInit {
       case "CPF": {
         this.qService.getPepData(this.queryParams.document, this.queryParams.datainicial, this.queryParams.datafinal).subscribe(
           (result) => {
-            console.log('API Response:', result);
-            this.responseArray = result;
+            this.responseArray = result.map(item => ({ ...item, cpf_completo: this.queryParams.document }));
           },
           (error) => {
             this.qService.showMessage(error.error);

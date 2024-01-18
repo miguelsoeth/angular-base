@@ -28,8 +28,8 @@ export class PepTableComponent implements OnChanges {
 
   ngOnChanges(changes: SimpleChanges) {
     if (changes['data']) {
-      // Handle changes to the 'data' input property
       console.log('Data updated in TableExpandableRowsExample:', this.data);
+
       this.dataSource = this.data;
     }
   }

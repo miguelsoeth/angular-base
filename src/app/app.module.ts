@@ -29,7 +29,7 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { HttpClientModule } from '@angular/common/http';
-import { CustomQueryDatePipe, CustomReferredDatePipe } from './components/components/date-format.pipe';
+import { CustomDatePipe, CustomDateWithTimePipe } from './components/components/date-format.pipe';
 import { CepimTableComponent } from './components/components/cepim-table/cepim-table.component';
 import { ResultadoComponent } from './views/resultado/resultado.component';
 import { MatExpansionModule } from '@angular/material/expansion';
@@ -57,8 +57,8 @@ const MY_DATE_FORMAT = {
     QueryButtonComponent,
     QueryButtonDialog,
     TableComponent,
-    CustomQueryDatePipe,
-    CustomReferredDatePipe,
+    CustomDatePipe,
+    CustomDateWithTimePipe,
     CepimTableComponent,
     PepTableComponent,
     ResultadoComponent,
