@@ -30,11 +30,10 @@ import { MatSortModule } from '@angular/material/sort';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { HttpClientModule } from '@angular/common/http';
 import { CustomQueryDatePipe, CustomReferredDatePipe } from './components/components/date-format.pipe';
-import { PepTableComponent } from './components/components/pep-table/pep-table.component';
 import { CepimTableComponent } from './components/components/cepim-table/cepim-table.component';
 import { ResultadoComponent } from './views/resultado/resultado.component';
 import { MatExpansionModule } from '@angular/material/expansion';
-import { TestTableComponent } from './components/components/test-table/test-table.component';
+import { PepTableComponent } from './components/components/pep-table/pep-table.component';
 
 const MY_DATE_FORMAT = {
   parse: {
@@ -60,10 +59,9 @@ const MY_DATE_FORMAT = {
     TableComponent,
     CustomQueryDatePipe,
     CustomReferredDatePipe,
-    PepTableComponent,
     CepimTableComponent,
+    PepTableComponent,
     ResultadoComponent,
-    TestTableComponent
   ],
   imports: [
     BrowserModule,

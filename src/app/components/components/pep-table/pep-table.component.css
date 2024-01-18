@@ -1,43 +1,44 @@
-.full-width-table {
+table {
   width: 100%;
 }
+
 .table-title {
   font-size: 1.4rem;
   margin: 0;
   padding: 2%;
 }
-tr.example-detail-row {
+
+tr.detail-row {
   height: 0;
 }
-tr.example-element-row:not(.example-expanded-row):hover {
+
+tr.element-row:not(.expanded-row):hover {
   background: whitesmoke;
 }
-tr.example-element-row:not(.example-expanded-row):active {
+
+tr.element-row:not(.expanded-row):active {
   background: #efefef;
 }
-.example-element-row td {
+
+.element-row td {
   border-bottom-width: 0;
 }
-.example-element-detail {
+
+.element-detail {
   overflow: hidden;
   display: flex;
 }
-.example-element-diagram {
-  min-width: 80px;
-  border: 2px solid black;
-  padding: 8px;
-  font-weight: lighter;
-  margin: 8px 0;
-  height: 104px;
+
+.element-detail-table {
+  margin: 10px 100px;
 }
-.example-element-symbol {
-  font-weight: bold;
-  font-size: 40px;
-  line-height: normal;
+
+.element-detail-table th {
+  padding-bottom: 5px;
 }
-.example-element-description {
-  padding: 16px;
+
+.element-detail-table td {
+  width: 50%;
 }
-.example-element-description-attribution {
-  opacity: 0.5;
-}
+
+  

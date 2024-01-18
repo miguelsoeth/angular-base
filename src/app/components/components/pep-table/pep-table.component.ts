@@ -1,33 +1,41 @@
-import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
-import { MatPaginator } from '@angular/material/paginator';
-import { MatSort } from '@angular/material/sort';
-import { MatTable } from '@angular/material/table';
-import { PepTableDataSource, PepTableItem } from './pep-table-datasource';
-
+import { PepResponse } from '../query-button/query.model';
+import {Component, Input, OnChanges, SimpleChanges} from '@angular/core';
+import {animate, state, style, transition, trigger} from '@angular/animations';
+/**
+ * @title Table with expandable rows
+ */
 @Component({
   selector: 'app-pep-table',
+  styleUrls: ['./pep-table.component.css'],
   templateUrl: './pep-table.component.html',
-  styleUrls: ['./pep-table.component.css']
+  animations: [
+    trigger('detailExpand', [
+      state('collapsed', style({height: '0px', minHeight: '0'})),
+      state('expanded', style({height: '*'})),
+      transition('expanded <=> collapsed', animate('225ms cubic-bezier(0.4, 0.0, 0.2, 1)')),
+    ]),
+  ],
 })
-export class PepTableComponent implements AfterViewInit, OnInit {
-  @ViewChild(MatPaginator) paginator: MatPaginator;
-  @ViewChild(MatSort) sort: MatSort;
-  @ViewChild(MatTable) table: MatTable<PepTableItem>;
-  dataSource: PepTableDataSource;
+export class PepTableComponent implements OnChanges {
+  @Input() data: PepResponse[];
+  dataSource: PepResponse[];
+  columnsToDisplay = ['cpf', 'nome', 'funcao', 'orgao', 'inicioExercicio', 'fimExercicio', 'expand'];
+  expandedElement: PepResponse | null;
 
-  /** Columns displayed in the table. Columns IDs can be added, removed, or reordered. */
-  displayedColumns = ['cpf', 'nome', 'funcao', 'orgao', 'inicioExercicio', 'fimExercicio', 'expand'];
-
-  ngOnInit() {
-    this.dataSource = new PepTableDataSource();
+  constructor() {
+    this.expandedElement = null;
   }
 
-  ngAfterViewInit() {
-    this.dataSource.sort = this.sort;
-    this.dataSource.paginator = this.paginator;
-    this.table.dataSource = this.dataSource;
+  ngOnChanges(changes: SimpleChanges) {
+    if (changes['data']) {
+      // Handle changes to the 'data' input property
+      console.log('Data updated in TableExpandableRowsExample:', this.data);
+      this.dataSource = this.data;
+    }
   }
-  toggleExpansion(row: PepTableItem): void {
-    row.expanded = !row.expanded;
+
+  toggleExpandedElement(element: PepResponse): void {
+    this.expandedElement = this.expandedElement === element ? null : element;
   }
+
 }
