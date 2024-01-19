@@ -1,7 +1,7 @@
 import { DataSource } from '@angular/cdk/collections';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
-import { map } from 'rxjs/operators';
+import { map, switchMap } from 'rxjs/operators';
 import { Observable, of as observableOf, merge } from 'rxjs';
 import { QueryHistoryResponse } from '../query-button/query.model';
 import { QueryService } from '../query-button/query.service';
@@ -13,22 +13,7 @@ export class TableDataSource extends DataSource<QueryHistoryResponse> {
 
   constructor(private qService: QueryService) {
     super();
-    this.initializeData();
-  }
-
-  private initializeData()  {
-    const Data: QueryHistoryResponse[] = [];
-    this.qService.readQueryHistory().subscribe((qData: QueryHistoryResponse[]) => {
-      this.data = qData.map(item => ({
-        username: item.username,
-        querydate: item.querydate,
-        type: item.type,
-        document: item.document,
-        referreddate: item.referreddate,
-        interval: item.interval,
-        interval_label: item.interval_label
-      }));
-    });
+    this.data = [];
   }
 
   /**
@@ -36,22 +21,33 @@ export class TableDataSource extends DataSource<QueryHistoryResponse> {
    * the returned stream emits new items.
    * @returns A stream of the items to be rendered.
    */
-  connect(): Observable<QueryHistoryResponse[]> {    
-    // Combine everything that affects the rendered data into one update
-    // stream for the data-table to consume.
+  connect(): Observable<QueryHistoryResponse[]> {
     const dataMutations = [
-      observableOf(this.data),
+      observableOf(null),
       this.paginator.page,
       this.sort.sortChange
     ];
 
-    return merge(...dataMutations).pipe(map(() => {
-      return this.getPagedData(this.getSortedData([...this.data]));
-    }));
+    return merge(...dataMutations).pipe(
+      switchMap(() => this.qService.readQueryHistory()),
+      map(qData => {
+        this.data = qData.map(item => ({
+          username: item.username,
+          querydate: item.querydate,
+          type: item.type,
+          document: item.document,
+          referreddate: item.referreddate,
+          interval: item.interval,
+          interval_label: item.interval_label
+        }));
+
+        return this.getPagedData(this.getSortedData([...this.data]));
+      })
+    );
   }
 
   /**
-   *  Called when the table is being destroyed. Use this function, to clean up
+   * Called when the table is being destroyed. Use this function, to clean up
    * any open connections or free any held resources that were set up during connect.
    */
   disconnect() {}

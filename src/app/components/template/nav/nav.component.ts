@@ -14,7 +14,7 @@ export class NavComponent {
   
   userPrompt(): void {
     var newUsername: string | null = prompt("Digite o seu nome de usuário:");
-    console.log(newUsername);
+    console.log("Usuário alterado para: " + newUsername);
     if (newUsername !== null) {
       while (newUsername == '') {
         newUsername = prompt("Nome inválido! Digite o seu nome de usuário:");

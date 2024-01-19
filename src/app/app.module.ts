@@ -1,39 +1,44 @@
-import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
-
-import { AppRoutingModule } from './app-routing.module';
-import { AppComponent } from './app.component';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { NavComponent } from './components/template/nav/nav.component';
+// @angular/material imports
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatListModule } from '@angular/material/list';
-import { HeaderComponent } from './components/template/header/header.component';
 import { MatToolbarModule } from '@angular/material/toolbar';
-import { HomeComponent } from './views/home/home.component';
 import { MatCardModule } from '@angular/material/card';
-import { ConsultaComponent } from './views/consulta/consulta.component';
 import { MatButtonModule } from '@angular/material/button';
-import { QueryButtonComponent, QueryButtonDialog } from './components/components/query-button/query-button.component';
-import { MatDialogModule } from '@angular/material/dialog'
-import {MatDatepickerModule} from '@angular/material/datepicker';
-import {MatInputModule} from '@angular/material/input';
-import {MatFormFieldModule} from '@angular/material/form-field';
-import {MatNativeDateModule} from '@angular/material/core';
-import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-import {MatSelectModule} from '@angular/material/select';import { NgxMaskModule } from 'ngx-mask';
-import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
-import { MomentDateAdapter } from '@angular/material-moment-adapter';
-import { TableComponent } from './components/components/table/table.component';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatInputModule } from '@angular/material/input';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatNativeDateModule } from '@angular/material/core';
+import { MatSelectModule } from '@angular/material/select';
 import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
-import { HttpClientModule } from '@angular/common/http';
-import { CustomDatePipe, CustomDateWithTimePipe } from './components/components/date-format.pipe';
+import { MatExpansionModule } from '@angular/material/expansion';
+
+// Components
+import { NavComponent } from './components/template/nav/nav.component';
+import { HeaderComponent } from './components/template/header/header.component';
+import { HomeComponent } from './views/home/home.component';
+import { ConsultaComponent } from './views/consulta/consulta.component';
+import { QueryButtonComponent, QueryButtonDialog } from './components/components/query-button/query-button.component';
+import { TableComponent } from './components/components/table/table.component';
 import { CepimTableComponent } from './components/components/cepim-table/cepim-table.component';
 import { ResultadoComponent } from './views/resultado/resultado.component';
-import { MatExpansionModule } from '@angular/material/expansion';
 import { PepTableComponent } from './components/components/pep-table/pep-table.component';
+
+// Other imports
+import { NgxMaskModule } from 'ngx-mask';
+import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
+import { MomentDateAdapter } from '@angular/material-moment-adapter';
+import { HttpClientModule } from '@angular/common/http';
+import { CustomDatePipe, CustomDateWithTimePipe } from './components/components/date-format.pipe';
+import { BrowserModule } from '@angular/platform-browser';
+import { NgModule } from '@angular/core';
+import { AppRoutingModule } from './app-routing.module';
+import { AppComponent } from './app.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 const MY_DATE_FORMAT = {
   parse: {

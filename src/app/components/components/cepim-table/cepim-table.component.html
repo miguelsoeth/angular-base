@@ -79,13 +79,13 @@
             <tr><td class="content">{{ element.pessoaJuridica.cpfFormatado }}</td></tr>
             <tr><td class="title">CNPJ</td></tr>
             <tr><td class="content">{{ element.pessoaJuridica.cnpjFormatado }}</td></tr>
-            <tr><td class="title">Número Inscrição Social</td></tr>
+            <tr><td class="title">Inscrição Social</td></tr>
             <tr><td class="content">{{ element.pessoaJuridica.numeroInscricaoSocial }}</td></tr>
             <tr><td class="title">Nome</td></tr>
             <tr><td class="content">{{ element.pessoaJuridica.nome }}</td></tr>
-            <tr><td class="title">Razão Social Receita</td></tr>
+            <tr><td class="title">Razão Social</td></tr>
             <tr><td class="content">{{ element.pessoaJuridica.razaoSocialReceita }}</td></tr>
-            <tr><td class="title">Nome Fantasia Receita</td></tr>
+            <tr><td class="title">Nome Fantasia</td></tr>
             <tr><td class="content">{{ element.pessoaJuridica.nomeFantasiaReceita }}</td></tr>
             <tr><td class="title">Tipo</td></tr>
             <tr><td class="content">{{ element.pessoaJuridica.tipo }}</td></tr>
@@ -97,7 +97,6 @@
     <tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
     <tr mat-row *matRowDef="let element; columns: columnsToDisplay;"
         class="element-row"
-        [class.example-expanded-row]="expandedElement === element"
         (click)="$event.stopPropagation()">
     </tr>
     <tr mat-row *matRowDef="let row; columns: ['expandedDetail']" class="detail-row"></tr>

@@ -28,7 +28,6 @@ export class CepimTableComponent implements OnChanges {
 
   ngOnChanges(changes: SimpleChanges) {
     if (changes['data']) {
-      console.log('Data updated in TableExpandableRowsExample:', this.data);
       this.dataSource = this.data;
     }
   }
