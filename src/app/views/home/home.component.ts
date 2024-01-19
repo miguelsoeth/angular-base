@@ -1,5 +1,5 @@
 import { UserService } from './../../components/template/user.service';
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { HeaderService } from 'src/app/components/template/header/header.service';
 
 @Component({
@@ -7,7 +7,7 @@ import { HeaderService } from 'src/app/components/template/header/header.service
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css']
 })
-export class HomeComponent implements OnInit {
+export class HomeComponent {
 
   constructor(private userService: UserService, private headerService: HeaderService) {
     headerService.HeaderData = {
@@ -17,9 +17,6 @@ export class HomeComponent implements OnInit {
     }
   }
 
-  public username: string = this.userService.getUsername;
-
-  ngOnInit(): void {
-  }
+  public username: string = this.userService.getUsername();
 
 }

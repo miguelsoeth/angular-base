@@ -87,7 +87,7 @@ export class QueryButtonDialog implements OnInit{
   }
 
   search(): void {
-    this.qhModel.username = this.userServiceData.getUsername;
+    this.qhModel.username = this.userServiceData.getUsername();
     this.qhModel.type = this.myForm.value.typeField;
     this.qhModel.referredDate = moment(this.myForm.value.dateField).format('YYYY-MM-DD');
     this.qhModel.document = this.myForm.value.documentField;
