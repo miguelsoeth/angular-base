@@ -49,13 +49,21 @@
               <th colspan="2">INFORMAÇÕES EXTRAS</th>
             </tr>
             <tr>
-              <td>Orgão: {{ element.codigoOrgao }}</td>
-              <td>Sigla: {{ element.siglaFuncao }}</td>
+                <td class="table-content-title">Orgão</td>
+                <td class="table-content-title">Nível da função</td>
             </tr>
             <tr>
-              <td>Nível da função: {{ element.nivelFuncao }}</td>
-              <td>Data final da carência: {{ element.dataFimCarencia }}</td>
+                <td>{{ element.codigoOrgao }}</td>
+                <td>{{ element.nivelFuncao }}</td>
             </tr>
+            <tr>
+                <td class="table-content-title">Sigla</td>
+                <td class="table-content-title">Data final da carência</td>
+            </tr>
+            <tr>
+                <td>{{ element.siglaFuncao }}</td>
+                <td>{{ element.dataFimCarencia }}</td>
+            </tr>            
           </table>
         </div>
       </td>

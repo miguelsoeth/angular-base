@@ -30,15 +30,26 @@ tr.element-row:not(.expanded-row):active {
 }
 
 .element-detail-table {
-  margin: 10px 100px;
+  margin: 20px 250px;
+  border: 1px solid #ddd;
 }
 
 .element-detail-table th {
-  padding-bottom: 5px;
+  height: 2rem;
+  font-size: 1rem;
+  font-weight: 700;
+  background-color: #ddd;
 }
 
 .element-detail-table td {
+  
   width: 50%;
+  text-align: center;
+}
+
+.table-content-title {
+  border-bottom: 1px solid #ddd;
+  font-weight: 700;
 }
 
   

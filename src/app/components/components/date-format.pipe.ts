@@ -19,7 +19,7 @@ export class CustomDateWithTimePipe implements PipeTransform {
   })
   export class CustomDatePipe implements PipeTransform {
     transform(value: string): string {
-      if (!value) return '';
+      if (value == '' || value == "Não informado") return "Não informado";
   
       const date = new Date(value);
       const formattedDate = new DatePipe('en-US').transform(date, 'dd/MM/yyyy');

@@ -23,13 +23,14 @@ export class ResultadoComponent implements OnInit {
 
   ngOnInit(): void {
     this.queryParams = this.route.snapshot.queryParams;
-    //console.log(this.queryParams);
 
     switch(this.queryParams.type) {
       case "CPF": {
         this.qService.getPepData(this.queryParams.document, this.queryParams.datainicial, this.queryParams.datafinal).subscribe(
           (result) => {
-            this.responseArray = result.map(item => ({ ...item, cpf_completo: this.queryParams.document }));
+            result.map(item => ({ ...item, cpf_completo: this.queryParams.document }))
+            this.fillEmptyFields(result, "Não informado");
+            this.responseArray = result;
           },
           (error) => {
             this.qService.showMessage(error.error);
@@ -40,7 +41,7 @@ export class ResultadoComponent implements OnInit {
       case "CNPJ": {
         this.qService.getCepimData(this.queryParams.document, this.queryParams.datainicial, this.queryParams.datafinal).subscribe(
           (result) => {
-            console.log('API Response:', result);
+            this.fillEmptyFields(result, "Não informado");
             this.responseArray = result;
           },
           (error) => {
@@ -55,5 +56,18 @@ export class ResultadoComponent implements OnInit {
       }
     }
     this.qService.showMessage("Busca concluída!");
+  }
+
+  fillEmptyFields(obj: any, defaultValue: string): void {
+    for (const key in obj) {
+      if (obj.hasOwnProperty(key)) {
+        const value = obj[key];
+        if (value && typeof value === 'object') {
+          this.fillEmptyFields(value, defaultValue);
+        } else if (value === '') {
+          obj[key] = defaultValue;
+        }
+      }
+    }
   }
 }

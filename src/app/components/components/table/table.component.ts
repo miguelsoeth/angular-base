@@ -14,20 +14,17 @@ import * as moment from 'moment';
   templateUrl: './table.component.html',
   styleUrls: ['./table.component.css']
 })
-export class TableComponent implements AfterViewInit, OnInit {
+export class TableComponent implements AfterViewInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild(MatTable) table: MatTable<QueryHistoryResponse>;
-  dataSource: TableDataSource;
+  dataSource: TableDataSource = new TableDataSource(this.qService);
   
   /** Columns displayed in the table. Columns IDs can be added, removed, or reordered. */
   displayedColumns = ['username', 'querydate', 'type', 'document', 'referreddate', 'interval', 'view'];
   
   constructor(private qService: QueryService, private router: Router) {}
 
-  ngOnInit() {
-    this.dataSource = new TableDataSource(this.qService);
-  }
 
   ngAfterViewInit() {
     this.dataSource.sort = this.sort;

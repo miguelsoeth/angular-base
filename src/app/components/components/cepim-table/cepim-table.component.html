@@ -49,7 +49,7 @@
             <tr><td class="title">Descrição Poder</td></tr>
             <tr><td class="content">{{ element.orgaoSuperior.descricaoPoder }}</td></tr>
           </table>
-          <table class="orgao-maximo">
+          <table class="convenio-orgao-maximo">
             <tr>
               <th colspan="2">ORGÃO MÁXIMO</th>
             </tr>
@@ -59,17 +59,25 @@
             <tr><td class="content">{{ element.orgaoSuperior.orgaoMaximo.sigla }}</td></tr>
             <tr><td class="title">Nome</td></tr>
             <tr><td class="content">{{ element.orgaoSuperior.orgaoMaximo.nome }}</td></tr>
-          </table>
-        
+            <tr>
+              <th colspan="2">CONVÊNIO</th>
+            </tr>
+            <tr><td class="title">Código</td></tr>
+            <tr><td class="content">{{ element.convenio.codigo }}</td></tr>
+            <tr><td class="title">Objeto</td></tr>
+            <tr><td class="content">{{ element.convenio.objeto }}</td></tr>
+            <tr><td class="title">Número</td></tr>
+            <tr><td class="content">{{ element.convenio.numero }}</td></tr>            
+          </table>                    
           <table class="pessoa-juridica">
             <tr>
               <th colspan="2">PESSOA JURÍDICA</th>
             </tr>
             <tr><td class="title">ID</td></tr>
             <tr><td class="content">{{ element.pessoaJuridica.id }}</td></tr>
-            <tr><td class="title">CPF Formatado</td></tr>
+            <tr><td class="title">CPF</td></tr>
             <tr><td class="content">{{ element.pessoaJuridica.cpfFormatado }}</td></tr>
-            <tr><td class="title">CNPJ Formatado</td></tr>
+            <tr><td class="title">CNPJ</td></tr>
             <tr><td class="content">{{ element.pessoaJuridica.cnpjFormatado }}</td></tr>
             <tr><td class="title">Número Inscrição Social</td></tr>
             <tr><td class="content">{{ element.pessoaJuridica.numeroInscricaoSocial }}</td></tr>
@@ -81,18 +89,6 @@
             <tr><td class="content">{{ element.pessoaJuridica.nomeFantasiaReceita }}</td></tr>
             <tr><td class="title">Tipo</td></tr>
             <tr><td class="content">{{ element.pessoaJuridica.tipo }}</td></tr>
-          </table>
-        
-          <table class="convenio">
-            <tr>
-              <th colspan="2">CONVÊNIO</th>
-            </tr>
-            <tr><td class="title">Código</td></tr>
-            <tr><td class="content">{{ element.convenio.codigo }}</td></tr>
-            <tr><td class="title">Objeto</td></tr>
-            <tr><td class="content">{{ element.convenio.objeto }}</td></tr>
-            <tr><td class="title">Número</td></tr>
-            <tr><td class="content">{{ element.convenio.numero }}</td></tr>
           </table>
         </div>
       </td>
