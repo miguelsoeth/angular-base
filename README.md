@@ -28,6 +28,6 @@ To get more help on the Angular CLI use `ng help` or go check out the [Angular C
 
 ## Required installs
 
-npm install ngx-mask@^9.1.4 --save
-npm i @angular/material-moment-adapter@9
-npm i moment
+npm install ngx-mask@^9.1.4 --save  
+npm i @angular/material-moment-adapter@9  
+npm i moment  
